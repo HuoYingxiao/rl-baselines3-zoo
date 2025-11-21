@@ -27,6 +27,7 @@ LunarLander-v3:
   n_steps: 5
   learning_rate: lin_0.00083
   ent_coef: 0.00001
+  
 
 MountainCar-v0:
   normalize: true
