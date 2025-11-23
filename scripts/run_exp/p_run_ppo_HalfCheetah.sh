@@ -1,15 +1,13 @@
 #!/bin/bash
 
-# 并行在多块 GPU 上跑多组 Humanoid-v4 的 PPO 实验
-# 每块 GPU 同时不超过 MAX_PER_GPU 个任务
 
-GPU_IDS=(0 1)            # 按机器实际情况修改
+GPU_IDS=(0 1)          
 MAX_PER_GPU=2
 
 seed_begin=1
 seed_end=3
 
-ENV_NAME="Humanoid-v4"
+ENV_NAME="HalfCheetah-v4"
 TOTAL_STEPS=30000000
 PROJECT_NAME="sb3-ppo-optim"
 
@@ -85,14 +83,14 @@ COMMON_HPARAMS=(
   "normalize:True"
   "n_envs:1"
   "n_steps:1024"
-  "batch_size:32"
+  "batch_size:64"
   "gamma:0.95"
   "gae_lambda:0.9"
   "ent_coef:0.0002"
   "clip_range:0.3"
   "n_epochs:20"
   "max_grad_norm:2.0"
-  "vf_coef:0.43"
+  "vf_coef:0.5"
   "log_param_norms:True"
   "separate_optimizers:True"
 )
@@ -101,9 +99,9 @@ POLICY_BASE="dict(log_std_init=-2, ortho_init=False, activation_fn=nn.ReLU, net_
 
 POLICY_ADAM_NOWD="${POLICY_BASE}, optimizer_class=th.optim.Adam, optimizer_kwargs=dict(weight_decay=0.0))"
 POLICY_ADAM_WD="${POLICY_BASE}, optimizer_class=th.optim.Adam, optimizer_kwargs=dict(weight_decay=0.01))"
-POLICY_MUON_NOWD="${POLICY_BASE}, optimizer_class=make_muon_with_aux_adam, optimizer_kwargs=dict(muon_lr=5e-4, adam_lr=5e-5, muon_weight_decay=0.0, adam_weight_decay=0.0, muon_momentum=0.95))"
-POLICY_MUON_WD="${POLICY_BASE}, optimizer_class=make_muon_with_aux_adam, optimizer_kwargs=dict(muon_lr=5e-4, adam_lr=5e-5, muon_weight_decay=0.02, adam_weight_decay=0.01, muon_momentum=0.95))"
-POLICY_MUON_NOWD_NOMOM="${POLICY_BASE}, optimizer_class=make_muon_with_aux_adam, optimizer_kwargs=dict(muon_lr=5e-4, adam_lr=5e-5, muon_weight_decay=0.0, adam_weight_decay=0.0, muon_momentum=0.0))"
+POLICY_MUON_NOWD="${POLICY_BASE}, optimizer_class=make_muon_with_aux_adam, optimizer_kwargs=dict(muon_lr=5e-5, adam_lr=1e-5, muon_weight_decay=0.0, adam_weight_decay=0.0, muon_momentum=0.95))"
+POLICY_MUON_WD="${POLICY_BASE}, optimizer_class=make_muon_with_aux_adam, optimizer_kwargs=dict(muon_lr=5e-5, adam_lr=1e-5, muon_weight_decay=0.01, adam_weight_decay=0.01, muon_momentum=0.95))"
+POLICY_MUON_NOWD_NOMOM="${POLICY_BASE}, optimizer_class=make_muon_with_aux_adam, optimizer_kwargs=dict(muon_lr=5e-5, adam_lr=1e-5, muon_weight_decay=0.0, adam_weight_decay=0.0, muon_momentum=0.0))"
 POLICY_SGD="${POLICY_BASE}, optimizer_class=th.optim.SGD, optimizer_kwargs=dict(momentum=0.9, weight_decay=0.0))"
 
 launch_variant() {
@@ -136,12 +134,12 @@ launch_variant() {
 
 for seed in $(seq ${seed_begin} ${seed_end}); do
   echo "===== seed ${seed} ====="
-  launch_variant "${seed}" "adam_nowd"        "${POLICY_ADAM_NOWD}"        "5e-5"
-  launch_variant "${seed}" "adam_wd"         "${POLICY_ADAM_WD}"          "5e-5"
-  launch_variant "${seed}" "muon_nowd"       "${POLICY_MUON_NOWD}"        "5e-4"
-  launch_variant "${seed}" "muon_wd"         "${POLICY_MUON_WD}"          "5e-4"
+  launch_variant "${seed}" "adam_nowd"        "${POLICY_ADAM_NOWD}"        "1e-5"
+  launch_variant "${seed}" "adam_wd"         "${POLICY_ADAM_WD}"          "1e-5"
+  launch_variant "${seed}" "muon_nowd"       "${POLICY_MUON_NOWD}"        "5e-5"
+  launch_variant "${seed}" "muon_wd"         "${POLICY_MUON_WD}"          "5e-5"
   launch_variant "${seed}" "muon_nowd_nomom" "${POLICY_MUON_NOWD_NOMOM}"  "5e-5"
-  launch_variant "${seed}" "sgd"             "${POLICY_SGD}"              "3e-3"
+  launch_variant "${seed}" "sgd"             "${POLICY_SGD}"              "1e-4"
 done
 
 # 等所有还活着的子进程结束
