@@ -28,7 +28,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
     --log-interval 1 \
     --hyperparams \
       "n_envs:8" \
-      "n_steps:258" \
+      "n_steps:256" \
       "learning_rate:5e-5" \
       "actor_learning_rate:1e-1" \
       "critic_learning_rate:5e-4" \
