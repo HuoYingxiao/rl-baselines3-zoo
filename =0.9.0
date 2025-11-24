@@ -1,0 +1,7 @@
+Collecting ale-py
+  Using cached ale_py-0.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (9.0 kB)
+Requirement already satisfied: numpy>1.20 in /home/yingxiao/pg/lib/python3.12/site-packages (from ale-py) (2.3.4)
+Downloading ale_py-0.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 10.7 MB/s  0:00:00
+Installing collected packages: ale-py
+Successfully installed ale-py-0.11.2

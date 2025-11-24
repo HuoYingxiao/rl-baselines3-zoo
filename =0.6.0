@@ -1,0 +1,7 @@
+Requirement already satisfied: pybullet_envs_gymnasium in /home/yingxiao/pg/lib/python3.12/site-packages (0.6.0)
+Requirement already satisfied: pybullet>=3.2.5 in /home/yingxiao/pg/lib/python3.12/site-packages (from pybullet_envs_gymnasium) (3.2.7)
+Requirement already satisfied: gymnasium<2.0,>=0.29.1 in /home/yingxiao/pg/lib/python3.12/site-packages (from pybullet_envs_gymnasium) (1.2.2)
+Requirement already satisfied: numpy>=1.21.0 in /home/yingxiao/pg/lib/python3.12/site-packages (from gymnasium<2.0,>=0.29.1->pybullet_envs_gymnasium) (2.3.4)
+Requirement already satisfied: cloudpickle>=1.2.0 in /home/yingxiao/pg/lib/python3.12/site-packages (from gymnasium<2.0,>=0.29.1->pybullet_envs_gymnasium) (3.1.2)
+Requirement already satisfied: typing-extensions>=4.3.0 in /home/yingxiao/pg/lib/python3.12/site-packages (from gymnasium<2.0,>=0.29.1->pybullet_envs_gymnasium) (4.15.0)
+Requirement already satisfied: farama-notifications>=0.0.1 in /home/yingxiao/pg/lib/python3.12/site-packages (from gymnasium<2.0,>=0.29.1->pybullet_envs_gymnasium) (0.0.4)

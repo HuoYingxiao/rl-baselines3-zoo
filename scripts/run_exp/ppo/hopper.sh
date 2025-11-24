@@ -129,6 +129,8 @@ launch_variant() {
       --hyperparams \
         "${COMMON_HPARAMS[@]}" \
         "learning_rate:${lr_value}" \
+        "actor_learning_rate:${lr_value}" \
+        "critic_learning_rate:${lr_value}" \
         "policy_kwargs:${policy_kwargs}" \
         "log_param_norms:True"
 }
