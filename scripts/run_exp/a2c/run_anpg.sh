@@ -30,7 +30,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
       "n_envs:8" \
       "n_steps:256" \
       "learning_rate:5e-5" \
-      "actor_learning_rate:5e-1" \
+      "actor_learning_rate:1e-1" \
       "critic_learning_rate:5e-4" \
       "gamma:0.99" \
       "gae_lambda:1.0" \
@@ -41,15 +41,16 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
       "use_rms_prop:False" \
       "use_pullback:True" \
       "statistic:'score_per_dim'" \
-      "prox_h:5.0" \
+      "prox_h:0.1" \
+      "fr_order:2" \
       "cg_lambda:0.01" \
       "cg_max_iter:10" \
       "cg_tol:1e-10" \
       "fisher_ridge:0.1" \
-      "step_clip:1.0" \
+      "step_clip:0.01" \
       "policy_kwargs:dict(activation_fn=nn.Tanh, net_arch=[64, 64])" \
       "log_param_norms:True" \
-      "separate_optimizers:True"
+      "separate_optimizers:True" \
 
   set +x
   #   echo "===== seed ${seed} : vanilla A2C ====="
