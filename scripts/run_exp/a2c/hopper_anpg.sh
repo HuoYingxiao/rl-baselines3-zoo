@@ -1,10 +1,10 @@
 #!/bin/bash
 
 GPU_IDS=(0 1)
-MAX_PER_GPU=1
+MAX_PER_GPU=2
 
 seed_begin=1
-seed_end=1
+seed_end=5
 
 ENV_NAME="Hopper-v4"
 TOTAL_STEPS=10000000
@@ -90,7 +90,7 @@ POLICY_ADAM="${POLICY_BASE}, optimizer_class=th.optim.Adam, optimizer_kwargs=dic
 A2C_PARAMS=(
   "learning_rate:1e-5"
   "actor_learning_rate:1e-4"
-  "critic_learning_rate:1e-1"
+  "critic_learning_rate:1e-4"
   "policy_kwargs:${POLICY_ADAM}"
   "normalize_advantage:True"
 )
