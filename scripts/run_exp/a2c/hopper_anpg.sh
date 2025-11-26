@@ -97,34 +97,34 @@ A2C_PARAMS=(
 
 A2C_PULLBACK_PARAMS=(
   "learning_rate:1e-5"
-  "actor_learning_rate:3e-1"
+  "actor_learning_rate:1e-1"
   "critic_learning_rate:1e-4"
   "policy_kwargs:${POLICY_ADAM}"
   "normalize_advantage:True"
   "use_pullback:True"
   "statistic:'logp'"
-  "prox_h:5.0"
+  "prox_h:1.0"
   "cg_lambda:0.01"
   "cg_max_iter:10"
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
-  "step_clip:0.05"
+  "step_clip:0.01"
 )
 
 A2C_PULLBACK_PARAMS1=(
   "learning_rate:1e-5"
-  "actor_learning_rate:3e-1"
+  "actor_learning_rate:1e-1"
   "critic_learning_rate:1e-4"
   "policy_kwargs:${POLICY_ADAM}"
   "normalize_advantage:True"
   "use_pullback:True"
   "statistic:'score_per_dim'"
-  "prox_h:5.0"
+  "prox_h:1.0"
   "cg_lambda:0.01"
   "cg_max_iter:10"
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
-  "step_clip:0.05"
+  "step_clip:0.01"
 )
 
 launch_variant() {
