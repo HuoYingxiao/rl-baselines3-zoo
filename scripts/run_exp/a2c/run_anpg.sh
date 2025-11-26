@@ -5,7 +5,7 @@ seed_end=2
 
 ENV_NAME="Hopper-v4"
 TOTAL_STEPS=10000000
-PROJECT_NAME="sb3-anpg"
+PROJECT_NAME="sb3-anpg-t"
 
 for seed in $(seq ${seed_begin} ${seed_end}); do
   echo "===== seed ${seed} : A2C + ANPG (dense G pullback) ====="
@@ -30,7 +30,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
       "n_envs:8" \
       "n_steps:256" \
       "learning_rate:5e-5" \
-      "actor_learning_rate:1e-1" \
+      "actor_learning_rate:1e-2" \
       "critic_learning_rate:3e-4" \
       "gamma:0.99" \
       "gae_lambda:1.0" \
@@ -41,12 +41,12 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
       "use_rms_prop:False" \
       "use_pullback:True" \
       "statistic:'score_per_dim'" \
-      "prox_h:10.0" \
+      "prox_h:1.0" \
       "fr_order:1" \
       "cg_lambda:0.1" \
       "cg_max_iter:25" \
       "cg_tol:1e-10" \
-      "fisher_ridge:0.01" \
+      "fisher_ridge:0.1" \
       "step_clip:0.01" \
       "policy_kwargs:dict(activation_fn=nn.Tanh, net_arch=[64, 64])" \
       "log_param_norms:True" \
@@ -55,7 +55,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
       "pb_inner_steps:5" \
       "pb_inner_lr:0.00005" \
       "pb_use_kernel:True" \
-      "pb_kernel_num_anchors:16" \
+      "pb_kernel_num_anchors:32" \
       "pb_kernel_sigma:1.0" \
 
   set +x
