@@ -1,10 +1,10 @@
 #!/bin/bash
 
-seed_begin=1
-seed_end=1
+seed_begin=2
+seed_end=2
 
 ENV_NAME="Hopper-v4"
-TOTAL_STEPS=5000000
+TOTAL_STEPS=10000000
 PROJECT_NAME="sb3-anpg"
 
 for seed in $(seq ${seed_begin} ${seed_end}); do
@@ -31,26 +31,32 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
       "n_steps:256" \
       "learning_rate:5e-5" \
       "actor_learning_rate:1e-1" \
-      "critic_learning_rate:5e-4" \
+      "critic_learning_rate:3e-4" \
       "gamma:0.99" \
       "gae_lambda:1.0" \
-      "ent_coef:0.001" \
+      "ent_coef:0.0" \
       "vf_coef:0.5" \
       "max_grad_norm:0.5" \
       "normalize_advantage:True" \
       "use_rms_prop:False" \
       "use_pullback:True" \
       "statistic:'score_per_dim'" \
-      "prox_h:0.1" \
-      "fr_order:2" \
-      "cg_lambda:0.01" \
-      "cg_max_iter:10" \
+      "prox_h:10.0" \
+      "fr_order:1" \
+      "cg_lambda:0.1" \
+      "cg_max_iter:25" \
       "cg_tol:1e-10" \
-      "fisher_ridge:0.1" \
+      "fisher_ridge:0.01" \
       "step_clip:0.01" \
       "policy_kwargs:dict(activation_fn=nn.Tanh, net_arch=[64, 64])" \
       "log_param_norms:True" \
       "separate_optimizers:True" \
+      "pb_use_inner_loop:False" \
+      "pb_inner_steps:5" \
+      "pb_inner_lr:0.00005" \
+      "pb_use_kernel:True" \
+      "pb_kernel_num_anchors:16" \
+      "pb_kernel_sigma:1.0" \
 
   set +x
   #   echo "===== seed ${seed} : vanilla A2C ====="
@@ -73,8 +79,8 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
   #     "n_envs:8" \
   #     "n_steps:256" \
   #     "learning_rate:1e-4" \
-  #     "actor_learning_rate:5e-4" \
-  #     "critic_learning_rate:5e-4" \
+  #     "actor_learning_rate:3e-4" \
+  #     "critic_learning_rate:3e-4" \
   #     "gamma:0.99" \
   #     "gae_lambda:1.0" \
   #     "ent_coef:0.0" \
