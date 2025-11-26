@@ -1,12 +1,12 @@
 #!/bin/bash
 
 GPU_IDS=(0 1)
-MAX_PER_GPU=3
+MAX_PER_GPU=2
 
 seed_begin=1
 seed_end=5
 
-ENV_NAME="Hopper-v4"
+ENV_NAME="HalfCheetah-v4"
 TOTAL_STEPS=10000000
 PROJECT_NAME="sb3-a2c-anpg"
 
@@ -94,12 +94,12 @@ A2C_PARAMS=(
 
 A2C_PULLBACK_PARAMS=(
   "learning_rate:1e-5"
-  "actor_learning_rate:1e-2"
+  "actor_learning_rate:5e-2"
   "critic_learning_rate:5e-4"
   "normalize_advantage:True"
   "use_pullback:True"
   "statistic:'logp'"
-  "prox_h:5.0"
+  "prox_h:0.1"
   "cg_lambda:0.1"
   "cg_max_iter:30"
   "cg_tol:1e-10"
@@ -109,12 +109,12 @@ A2C_PULLBACK_PARAMS=(
 
 A2C_PULLBACK_PARAMS1=(
   "learning_rate:1e-5"
-  "actor_learning_rate:1e-2"
+  "actor_learning_rate:5e-2"
   "critic_learning_rate:5e-4"
   "normalize_advantage:True"
   "use_pullback:True"
   "statistic:'score_per_dim'"
-  "prox_h:10.0"
+  "prox_h:0.1"
   "cg_lambda:0.1"
   "cg_max_iter:10"
   "cg_tol:1e-10"
@@ -152,7 +152,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
   echo "===== seed ${seed} ====="
   launch_variant "${seed}" "pullback" A2C_PULLBACK_PARAMS1
   launch_variant "${seed}" "baseline" A2C_PARAMS
-  launch_variant "${seed}" "pullback-p5" A2C_PULLBACK_PARAMS
+  launch_variant "${seed}" "pullback-logp" A2C_PULLBACK_PARAMS
 done
 
 # Wait for outstanding jobs.

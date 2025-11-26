@@ -1,7 +1,5 @@
-Collecting ale-py
-  Using cached ale_py-0.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (9.0 kB)
-Requirement already satisfied: numpy>1.20 in /home/yingxiao/pg/lib/python3.12/site-packages (from ale-py) (2.3.4)
-Downloading ale_py-0.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 10.7 MB/s  0:00:00
-Installing collected packages: ale-py
-Successfully installed ale-py-0.11.2
+Requirement already satisfied: ale-py in /mnt/iusers01/fatpou01/compsci01/u10602yh/venvs/rl/lib/python3.9/site-packages (0.11.2)
+Requirement already satisfied: numpy>1.20 in /mnt/iusers01/fatpou01/compsci01/u10602yh/venvs/rl/lib/python3.9/site-packages (from ale-py) (1.23.5)
+Requirement already satisfied: importlib-metadata>=4.10.0 in /mnt/iusers01/fatpou01/compsci01/u10602yh/venvs/rl/lib/python3.9/site-packages (from ale-py) (7.1.0)
+Requirement already satisfied: typing-extensions in /mnt/iusers01/fatpou01/compsci01/u10602yh/venvs/rl/lib/python3.9/site-packages (from ale-py) (4.15.0)
+Requirement already satisfied: zipp>=0.5 in /mnt/iusers01/fatpou01/compsci01/u10602yh/venvs/rl/lib/python3.9/site-packages (from importlib-metadata>=4.10.0->ale-py) (3.19.2)
