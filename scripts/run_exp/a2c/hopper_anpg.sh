@@ -8,7 +8,7 @@ seed_end=5
 
 ENV_NAME="Hopper-v4"
 TOTAL_STEPS=10000000
-PROJECT_NAME="sb3-a2c-anpg"
+PROJECT_NAME="sb3-a2c-anpg-exp"
 
 declare -A GPU_RUNNING     
 declare -A PID_TO_GPU   
@@ -92,7 +92,7 @@ A2C_PARAMS=(
   "normalize_advantage:True"
 )
 
-A2C_PULLBACK_PARAMS=(
+A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
   "actor_learning_rate:1e-1"
   "critic_learning_rate:1e-4"
@@ -106,9 +106,10 @@ A2C_PULLBACK_PARAMS=(
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
   "step_clip:0.01"
+  "fr_order:1"
 )
 
-A2C_PULLBACK_PARAMS1=(
+A2C_PULLBACK_PARAMS_SCORE=(
   "learning_rate:1e-5"
   "actor_learning_rate:1e-1"
   "critic_learning_rate:1e-4"
@@ -122,6 +123,24 @@ A2C_PULLBACK_PARAMS1=(
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
   "step_clip:0.01"
+  "fr_order:1"
+)
+
+A2C_PULLBACK_PARAMS_LOGP2=(
+  "learning_rate:1e-5"
+  "actor_learning_rate:1e-1"
+  "critic_learning_rate:1e-4"
+  "policy_kwargs:${POLICY_ADAM}"
+  "normalize_advantage:True"
+  "use_pullback:True"
+  "statistic:'logp'"
+  "prox_h:1.0"
+  "cg_lambda:0.01"
+  "cg_max_iter:10"
+  "cg_tol:1e-10"
+  "fisher_ridge:0.1"
+  "step_clip:0.01"
+  "fr_order:2"
 )
 
 launch_variant() {
@@ -152,9 +171,10 @@ launch_variant() {
 
 for seed in $(seq ${seed_begin} ${seed_end}); do
   echo "===== seed ${seed} ====="
-  launch_variant "${seed}" "pullback" A2C_PULLBACK_PARAMS1
   launch_variant "${seed}" "baseline" A2C_PARAMS
-  launch_variant "${seed}" "pullback-p5" A2C_PULLBACK_PARAMS
+  launch_variant "${seed}" "pullback_score" A2C_PULLBACK_PARAMS_SCORE
+  launch_variant "${seed}" "pullback_logp" A2C_PULLBACK_PARAMS_LOGP
+  launch_variant "${seed}" "pullback_logp_order2" A2C_PULLBACK_PARAMS_LOGP2
 done
 
 # Wait for outstanding jobs.

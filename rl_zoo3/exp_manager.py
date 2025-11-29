@@ -382,7 +382,7 @@ class ExperimentManager:
     @staticmethod
     def _preprocess_schedules(hyperparams: dict[str, Any]) -> dict[str, Any]:
         # Create schedules
-        for key in ["learning_rate", "clip_range", "clip_range_vf", "delta_std"]:
+        for key in ["learning_rate", "clip_range", "clip_range_vf", "delta_std", "actor_learning_rate", "critic_learning_rate"]:
             if key not in hyperparams:
                 continue
             if isinstance(hyperparams[key], str):

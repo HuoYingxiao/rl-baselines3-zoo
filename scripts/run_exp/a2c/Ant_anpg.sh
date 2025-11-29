@@ -8,7 +8,7 @@ seed_end=5
 
 ENV_NAME="Ant-v4"
 TOTAL_STEPS=30000000
-PROJECT_NAME="sb3-a2c-anpg"
+PROJECT_NAME="sb3-a2c-anpg-exp"
 
 declare -A GPU_RUNNING
 declare -A PID_TO_GPU
@@ -91,9 +91,9 @@ A2C_PARAMS=(
   "separate_optimizers:True"
 )
 
-A2C_PULLBACK_PARAMS=(
+A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
-  "actor_learning_rate:3e-2"
+  "actor_learning_rate:'lin_3e-2'"
   "critic_learning_rate:1e-4"
   "normalize_advantage:True"
   "log_param_norms:True"
@@ -106,11 +106,12 @@ A2C_PULLBACK_PARAMS=(
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
   "step_clip:0.01"
+  "fr_order:1"
 )
 
-A2C_PULLBACK_PARAMS1=(
+A2C_PULLBACK_PARAMS_SCORE=(
   "learning_rate:1e-5"
-  "actor_learning_rate:3e-2"
+  "actor_learning_rate:'lin_3e-2'"
   "critic_learning_rate:1e-4"
   "normalize_advantage:True"
   "log_param_norms:True"
@@ -123,6 +124,25 @@ A2C_PULLBACK_PARAMS1=(
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
   "step_clip:0.01"
+  "fr_order:1"
+)
+
+A2C_PULLBACK_PARAMS_LOGP2=(
+  "learning_rate:1e-5"
+  "actor_learning_rate:'lin_3e-2'"
+  "critic_learning_rate:1e-4"
+  "normalize_advantage:True"
+  "log_param_norms:True"
+  "separate_optimizers:True"
+  "use_pullback:True"
+  "statistic:'logp'"
+  "prox_h:0.1"
+  "cg_lambda:0.1"
+  "cg_max_iter:30"
+  "cg_tol:1e-10"
+  "fisher_ridge:0.1"
+  "step_clip:0.01"
+  "fr_order:2"
 )
 
 # ===== PPO baseline 超参数 =====
@@ -170,8 +190,9 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
 
   # A2C baselines + pullback
   launch_variant "${seed}" "a2c" "baseline"        A2C_PARAMS
-  launch_variant "${seed}" "a2c" "pullback_logp"   A2C_PULLBACK_PARAMS
-  launch_variant "${seed}" "a2c" "pullback_score"  A2C_PULLBACK_PARAMS1
+  launch_variant "${seed}" "a2c" "pullback_score"  A2C_PULLBACK_PARAMS_SCORE
+  launch_variant "${seed}" "a2c" "pullback_logp"   A2C_PULLBACK_PARAMS_LOGP
+  launch_variant "${seed}" "a2c" "pullback_logp_order2"   A2C_PULLBACK_PARAMS_LOGP2
 
   # PPO baseline
   launch_variant "${seed}" "ppo" "baseline"        PPO_PARAMS
