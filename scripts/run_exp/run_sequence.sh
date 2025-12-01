@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Avoid WandB network/login blocking in batch runs
+export WANDB_MODE="${WANDB_MODE:-offline}"
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname "$0")" && pwd)"
