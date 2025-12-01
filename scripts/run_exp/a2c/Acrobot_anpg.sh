@@ -92,9 +92,9 @@ A2C_PARAMS=(
 )
 
 
-A2C_PULLBACK_PARAMS1=(
+A2C_PULLBACK_PARAMS_SCORE=(
   "learning_rate:1e-5"
-  "actor_learning_rate:'lin_1e-2'"
+  "actor_learning_rate:'lin_5e-2'"
   "critic_learning_rate:3e-4"
   "normalize_advantage:True"
   "log_param_norms:True"
@@ -112,7 +112,7 @@ A2C_PULLBACK_PARAMS1=(
 
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
-  "actor_learning_rate:'lin_1e-2'"
+  "actor_learning_rate:'lin_5e-2'"
   "critic_learning_rate:3e-4"
   "normalize_advantage:True"
   "log_param_norms:True"
@@ -131,7 +131,7 @@ A2C_PULLBACK_PARAMS_LOGP=(
 
 A2C_PULLBACK_PARAMS_LOGP2=(
   "learning_rate:1e-5"
-  "actor_learning_rate:'lin_1e-2'"
+  "actor_learning_rate:'lin_5e-2'"
   "critic_learning_rate:3e-4"
   "normalize_advantage:True"
   "log_param_norms:True"
@@ -146,6 +146,9 @@ A2C_PULLBACK_PARAMS_LOGP2=(
   "step_clip:0.01"
   "fr_order:2"
 )
+
+# Common ANPG variants
+source "$(dirname "$0")/anpg_variants_common.sh"
 # ===== PPO baseline 超参数 =====
 # 这里给一个比较常规的配置，可以再按需要调
 PPO_PARAMS=(
@@ -191,9 +194,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
 
   # A2C baselines + pullback
   launch_variant "${seed}" "a2c" "baseline"        A2C_PARAMS
-  launch_variant "${seed}" "a2c" "pullback_score"  A2C_PULLBACK_PARAMS1
-  launch_variant "${seed}" "a2c" "pullback_logp"   A2C_PULLBACK_PARAMS_LOGP
-  launch_variant "${seed}" "a2c" "pullback_logp_order2"   A2C_PULLBACK_PARAMS_LOGP2
+  launch_anpg_variants "${seed}"
   # PPO baseline
   launch_variant "${seed}" "ppo" "baseline"        PPO_PARAMS
 done

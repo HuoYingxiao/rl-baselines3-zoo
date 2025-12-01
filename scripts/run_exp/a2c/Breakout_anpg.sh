@@ -90,7 +90,7 @@ A2C_PARAMS=(
 
 A2C_PULLBACK_PARAMS_SCORE=(
   "learning_rate:7e-4"
-  "actor_learning_rate:1e-2"
+  "actor_learning_rate:5e-2"
   "critic_learning_rate:7e-4"
   "use_pullback:True"
   "statistic:'score_per_dim'"
@@ -105,7 +105,7 @@ A2C_PULLBACK_PARAMS_SCORE=(
 
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:7e-4"
-  "actor_learning_rate:1e-2"
+  "actor_learning_rate:5e-2"
   "critic_learning_rate:7e-4"
   "use_pullback:True"
   "statistic:'logp'"
@@ -120,7 +120,7 @@ A2C_PULLBACK_PARAMS_LOGP=(
 
 A2C_PULLBACK_PARAMS_LOGP2=(
   "learning_rate:7e-4"
-  "actor_learning_rate:1e-2"
+  "actor_learning_rate:5e-2"
   "critic_learning_rate:7e-4"
   "use_pullback:True"
   "statistic:'logp'"
@@ -144,6 +144,8 @@ PPO_PARAMS=(
   "clip_range:0.1"
   "frame_stack:4"
 )
+
+source "$(dirname "$0")/anpg_variants_common.sh"
 
 launch_variant() {
   local seed=$1
@@ -175,9 +177,7 @@ launch_variant() {
 for seed in $(seq ${seed_begin} ${seed_end}); do
   echo "===== seed ${seed} ====="
   launch_variant "${seed}" "a2c" "baseline" A2C_PARAMS
-  launch_variant "${seed}" "a2c" "pullback_score" A2C_PULLBACK_PARAMS_SCORE
-  launch_variant "${seed}" "a2c" "pullback_logp" A2C_PULLBACK_PARAMS_LOGP
-  launch_variant "${seed}" "a2c" "pullback_logp_order2" A2C_PULLBACK_PARAMS_LOGP2
+  launch_anpg_variants "${seed}"
   launch_variant "${seed}" "ppo" "baseline" PPO_PARAMS
 done
 

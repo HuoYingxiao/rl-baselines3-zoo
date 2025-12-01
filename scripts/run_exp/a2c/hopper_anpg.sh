@@ -94,7 +94,7 @@ A2C_PARAMS=(
 
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
-  "actor_learning_rate:1e-1"
+  "actor_learning_rate:'lin_1e-2'"
   "critic_learning_rate:1e-4"
   "policy_kwargs:${POLICY_ADAM}"
   "normalize_advantage:True"
@@ -111,7 +111,7 @@ A2C_PULLBACK_PARAMS_LOGP=(
 
 A2C_PULLBACK_PARAMS_SCORE=(
   "learning_rate:1e-5"
-  "actor_learning_rate:1e-1"
+  "actor_learning_rate:'lin_1e-2'"
   "critic_learning_rate:1e-4"
   "policy_kwargs:${POLICY_ADAM}"
   "normalize_advantage:True"
@@ -128,7 +128,7 @@ A2C_PULLBACK_PARAMS_SCORE=(
 
 A2C_PULLBACK_PARAMS_LOGP2=(
   "learning_rate:1e-5"
-  "actor_learning_rate:1e-1"
+  "actor_learning_rate:'lin_1e-2'"
   "critic_learning_rate:1e-4"
   "policy_kwargs:${POLICY_ADAM}"
   "normalize_advantage:True"
@@ -142,6 +142,9 @@ A2C_PULLBACK_PARAMS_LOGP2=(
   "step_clip:0.01"
   "fr_order:2"
 )
+
+# Common ANPG variants
+source "$(dirname "$0")/anpg_variants_common.sh"
 
 launch_variant() {
   local seed=$1
@@ -172,9 +175,7 @@ launch_variant() {
 for seed in $(seq ${seed_begin} ${seed_end}); do
   echo "===== seed ${seed} ====="
   launch_variant "${seed}" "baseline" A2C_PARAMS
-  launch_variant "${seed}" "pullback_score" A2C_PULLBACK_PARAMS_SCORE
-  launch_variant "${seed}" "pullback_logp" A2C_PULLBACK_PARAMS_LOGP
-  launch_variant "${seed}" "pullback_logp_order2" A2C_PULLBACK_PARAMS_LOGP2
+  launch_anpg_variants "${seed}"
 done
 
 # Wait for outstanding jobs.

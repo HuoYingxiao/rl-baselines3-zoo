@@ -147,6 +147,9 @@ PPO_PARAMS=(
   "clip_range:0.2"
 )
 
+# Common ANPG variants
+source "$(dirname "$0")/anpg_variants_common.sh"
+
 launch_variant() {
   local seed=$1
   local algo=$2
@@ -177,9 +180,7 @@ launch_variant() {
 for seed in $(seq ${seed_begin} ${seed_end}); do
   echo "===== seed ${seed} ====="
   launch_variant "${seed}" "a2c" "baseline" A2C_PARAMS
-  launch_variant "${seed}" "a2c" "pullback_score" A2C_PULLBACK_PARAMS_SCORE
-  launch_variant "${seed}" "a2c" "pullback_logp" A2C_PULLBACK_PARAMS_LOGP
-  launch_variant "${seed}" "a2c" "pullback_logp_order2" A2C_PULLBACK_PARAMS_LOGP2
+  launch_anpg_variants "${seed}"
   launch_variant "${seed}" "ppo" "baseline" PPO_PARAMS
 done
 
