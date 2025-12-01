@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd -- "$(dirname "$0")" && pwd)"
 LOG_DIR="${SCRIPT_DIR}/logs"
 
 # Re-exec in the background with nohup so the run survives SSH disconnects.
-if [[ "${RUN_SEQ_CHILD:-0}" != "1" ]]; then
+if [[ -t 1 && "${RUN_SEQ_CHILD:-0}" != "1" ]]; then
   mkdir -p "${LOG_DIR}"
   ts="$(date +%Y%m%d_%H%M%S)"
   log_file="${LOG_DIR}/run_sequence_${ts}.log"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 GPU_IDS=(0 1)
-MAX_PER_GPU=2
+MAX_PER_GPU=3
 
 seed_begin=1
 seed_end=3
