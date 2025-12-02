@@ -98,7 +98,7 @@ POLICY_ADAM="${POLICY_BASE}, optimizer_class=th.optim.Adam, optimizer_kwargs=dic
 A2C_PARAMS=(
   "learning_rate:1e-3"
   "actor_learning_rate:1e-3"
-  "critic_learning_rate:1e-3"
+  "critic_learning_rate:0.001"
   "policy_kwargs:${POLICY_ADAM}"
   "normalize_advantage:True"
 )
@@ -106,10 +106,11 @@ A2C_PARAMS=(
 A2C_PULLBACK_PARAMS=(
   "learning_rate:5e-3"
   "actor_learning_rate:5e-3"
-  "critic_learning_rate:5e-3"
+  "critic_learning_rate:0.0025"
   "policy_kwargs:${POLICY_ADAM}"
   "normalize_advantage:True"
   "use_pullback:True"
+  "n_critic_updates:5"
   "statistic:'logp'"
   "prox_h:5.0"
   "cg_lambda:0.01"

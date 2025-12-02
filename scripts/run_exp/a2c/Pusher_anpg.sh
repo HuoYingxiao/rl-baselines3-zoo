@@ -84,16 +84,17 @@ COMMON_ENV_PARAMS=(
 A2C_PARAMS=(
   "learning_rate:1e-5"
   "actor_learning_rate:3e-4"
-  "critic_learning_rate:3e-4"
+  "critic_learning_rate:0.0003"
   "normalize_advantage:True"
 )
 
 A2C_PULLBACK_PARAMS_SCORE=(
   "learning_rate:1e-5"
   "actor_learning_rate:3e-2"
-  "critic_learning_rate:3e-4"
+  "critic_learning_rate:0.00015"
   "normalize_advantage:True"
   "use_pullback:True"
+  "n_critic_updates:5"
   "statistic:'score_per_dim'"
   "prox_h:0.5"
   "cg_lambda:0.1"
@@ -107,9 +108,10 @@ A2C_PULLBACK_PARAMS_SCORE=(
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
   "actor_learning_rate:3e-2"
-  "critic_learning_rate:3e-4"
+  "critic_learning_rate:0.00015"
   "normalize_advantage:True"
   "use_pullback:True"
+  "n_critic_updates:5"
   "statistic:'logp'"
   "prox_h:0.5"
   "cg_lambda:0.1"
@@ -123,9 +125,10 @@ A2C_PULLBACK_PARAMS_LOGP=(
 A2C_PULLBACK_PARAMS_LOGP2=(
   "learning_rate:1e-5"
   "actor_learning_rate:3e-2"
-  "critic_learning_rate:3e-4"
+  "critic_learning_rate:0.00015"
   "normalize_advantage:True"
   "use_pullback:True"
+  "n_critic_updates:5"
   "statistic:'logp'"
   "prox_h:0.5"
   "cg_lambda:0.1"
