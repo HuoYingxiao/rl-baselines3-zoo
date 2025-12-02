@@ -144,15 +144,16 @@ source "$(dirname "$0")/anpg_variants_common.sh"
 
 launch_variant() {
   local seed=$1
-  local variant=$2
-  local -n params_ref=$3  # nameref to pick the right array
-  local extra_name="a2c_${variant}_seed${seed}"
+  local algo=$2
+  local variant=$3
+  local -n params_ref=$4  # nameref to pick the right array
+  local extra_name="${algo}_${variant}_seed${seed}"
 
   run_with_gpu \
     python train.py \
       --wandb-project-name "${PROJECT_NAME}" \
       --wandb-run-extra-name "${extra_name}" \
-      --algo a2c \
+      --algo "${algo}" \
       --env "${ENV_NAME}" \
       --vec-env subproc \
       --n-timesteps ${TOTAL_STEPS} \
@@ -170,7 +171,7 @@ launch_variant() {
 
 for seed in $(seq ${seed_begin} ${seed_end}); do
   echo "===== seed ${seed} ====="
-  launch_variant "${seed}" "baseline" A2C_PARAMS
+  launch_variant "${seed}" "a2c" "baseline" A2C_PARAMS
   launch_anpg_variants "${seed}"
 done
 

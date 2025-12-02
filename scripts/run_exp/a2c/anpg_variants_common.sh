@@ -2,7 +2,7 @@
 
 # Launch a fixed set of ANPG variants using existing base arrays
 # A2C_PULLBACK_PARAMS_SCORE and A2C_PULLBACK_PARAMS_LOGP.
-# Assumes launch_variant(seed, variant_name, params_array_name) is defined in caller.
+# Assumes launch_variant(seed, algo, variant_name, params_array_name) is defined in caller.
 launch_anpg_variants() {
   local seed=$1
   local algo=${2:-a2c}
