@@ -100,7 +100,7 @@ A2C_PULLBACK_PARAMS_SCORE=(
   "cg_max_iter:20"
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
-  "step_clip:0.01"
+  "step_clip:0.1"
   "fr_order:1"
 )
 
@@ -116,7 +116,7 @@ A2C_PULLBACK_PARAMS_LOGP=(
   "cg_max_iter:20"
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
-  "step_clip:0.01"
+  "step_clip:0.1"
   "fr_order:1"
 )
 
@@ -132,7 +132,7 @@ A2C_PULLBACK_PARAMS_LOGP2=(
   "cg_max_iter:20"
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
-  "step_clip:0.01"
+  "step_clip:0.1"
   "fr_order:2"
 )
 

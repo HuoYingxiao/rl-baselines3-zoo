@@ -94,7 +94,7 @@ A2C_PARAMS=(
 
 A2C_PULLBACK_PARAMS_SCORE=(
   "learning_rate:1e-5"
-  "actor_learning_rate:1e-2"
+  "actor_learning_rate:'lin_1e-1'"
   "critic_learning_rate:3e-4"
   "normalize_advantage:True"
   "log_param_norms:True"
@@ -112,7 +112,7 @@ A2C_PULLBACK_PARAMS_SCORE=(
 
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
-  "actor_learning_rate:1e-2"
+  "actor_learning_rate:'lin_1e-1'"
   "critic_learning_rate:3e-4"
   "normalize_advantage:True"
   "log_param_norms:True"
@@ -130,7 +130,7 @@ A2C_PULLBACK_PARAMS_LOGP=(
 
 A2C_PULLBACK_PARAMS_LOGP2=(
   "learning_rate:1e-5"
-  "actor_learning_rate:1e-2"
+  "actor_learning_rate:'lin_1e-1'"
   "critic_learning_rate:3e-4"
   "normalize_advantage:True"
   "log_param_norms:True"

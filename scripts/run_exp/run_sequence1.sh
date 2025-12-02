@@ -15,7 +15,7 @@ if [[ -t 1 && "${RUN_SEQ_CHILD:-0}" != "1" ]]; then
   exit 0
 fi
 
-list_file="a2c/anpg_scripts.txt"
+list_file="a2c/anpg_scripts1.txt"
 targets=()
 
 while [[ "$#" -gt 0 ]]; do

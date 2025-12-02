@@ -1,5 +1,0 @@
-Requirement already satisfied: ale-py in /mnt/iusers01/fatpou01/compsci01/u10602yh/venvs/rl/lib/python3.9/site-packages (0.11.2)
-Requirement already satisfied: numpy>1.20 in /mnt/iusers01/fatpou01/compsci01/u10602yh/venvs/rl/lib/python3.9/site-packages (from ale-py) (1.23.5)
-Requirement already satisfied: importlib-metadata>=4.10.0 in /mnt/iusers01/fatpou01/compsci01/u10602yh/venvs/rl/lib/python3.9/site-packages (from ale-py) (7.1.0)
-Requirement already satisfied: typing-extensions in /mnt/iusers01/fatpou01/compsci01/u10602yh/venvs/rl/lib/python3.9/site-packages (from ale-py) (4.15.0)
-Requirement already satisfied: zipp>=0.5 in /mnt/iusers01/fatpou01/compsci01/u10602yh/venvs/rl/lib/python3.9/site-packages (from importlib-metadata>=4.10.0->ale-py) (3.19.2)
