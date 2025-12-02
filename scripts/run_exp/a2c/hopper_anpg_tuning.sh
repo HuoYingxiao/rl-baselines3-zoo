@@ -120,10 +120,11 @@ launch_anpg_variant() {
         "${COMMON_HPARAMS[@]}" \
         "learning_rate:1e-5" \
         "actor_learning_rate:1e-1" \
-        "critic_learning_rate:1e-4" \
+        "critic_learning_rate:5e-05" \
         "policy_kwargs:${POLICY_ADAM}" \
         "normalize_advantage:True" \
         "use_pullback:True" \
+        "n_critic_updates:5" \
         "statistic:'score_per_dim'" \
         "prox_h:${prox_h}" \
         "fr_order:1" \

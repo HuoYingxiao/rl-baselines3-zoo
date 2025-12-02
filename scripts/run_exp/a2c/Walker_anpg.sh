@@ -88,16 +88,17 @@ POLICY_BASE="dict(activation_fn=nn.Tanh, net_arch=dict(pi=[64, 64], vf=[64, 64])
 A2C_PARAMS=(
   "learning_rate:1e-5"
   "actor_learning_rate:3e-4"
-  "critic_learning_rate:3e-4"
+  "critic_learning_rate:0.0003"
   "normalize_advantage:True"
 )
 
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
   "actor_learning_rate:5e-2"
-  "critic_learning_rate:5e-4"
+  "critic_learning_rate:0.00025"
   "normalize_advantage:True"
   "use_pullback:True"
+  "n_critic_updates:5"
   "statistic:'logp'"
   "prox_h:0.1"
   "cg_lambda:0.1"
@@ -111,9 +112,10 @@ A2C_PULLBACK_PARAMS_LOGP=(
 A2C_PULLBACK_PARAMS_SCORE=(
   "learning_rate:1e-5"
   "actor_learning_rate:5e-2"
-  "critic_learning_rate:5e-4"
+  "critic_learning_rate:0.00025"
   "normalize_advantage:True"
   "use_pullback:True"
+  "n_critic_updates:5"
   "statistic:'score_per_dim'"
   "prox_h:0.1"
   "cg_lambda:0.1"
@@ -127,9 +129,10 @@ A2C_PULLBACK_PARAMS_SCORE=(
 A2C_PULLBACK_PARAMS_LOGP2=(
   "learning_rate:1e-5"
   "actor_learning_rate:5e-2"
-  "critic_learning_rate:5e-4"
+  "critic_learning_rate:0.00025"
   "normalize_advantage:True"
   "use_pullback:True"
+  "n_critic_updates:5"
   "statistic:'logp'"
   "prox_h:0.1"
   "cg_lambda:0.1"
@@ -138,6 +141,18 @@ A2C_PULLBACK_PARAMS_LOGP2=(
   "fisher_ridge:0.1"
   "step_clip:0.01"
   "fr_order:2"
+)
+
+# PPO baseline hyperparams
+PPO_PARAMS=(
+  "learning_rate:1e-4"
+  "batch_size:64"
+  "n_epochs:10"
+  "gamma:0.99"
+  "gae_lambda:0.98"
+  "ent_coef:0.01"
+  "vf_coef:0.5"
+  "clip_range:0.2"
 )
 
 source "$(dirname "$0")/anpg_variants_common.sh"
@@ -173,6 +188,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
   echo "===== seed ${seed} ====="
   launch_variant "${seed}" "a2c" "baseline" A2C_PARAMS
   launch_anpg_variants "${seed}"
+  launch_variant "${seed}" "ppo" "baseline" PPO_PARAMS
 done
 
 # Wait for outstanding jobs.

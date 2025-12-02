@@ -29,8 +29,8 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
       "n_envs:8" \
       "n_steps:256" \
       "learning_rate:3e-4" \
-      "actor_learning_rate:'lin_1e-2'" \
-      "critic_learning_rate:3e-4" \
+      "actor_learning_rate:1e-2" \
+      "critic_learning_rate:0.00015" \
       "gamma:0.99" \
       "gae_lambda:1.0" \
       "ent_coef:0.0" \
@@ -39,6 +39,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
       "normalize_advantage:True" \
       "use_rms_prop:False" \
       "use_pullback:True" \
+      "n_critic_updates:5" \
       "statistic:'logp'" \
       "prox_h:1.0" \
       "fr_order:1" \
@@ -49,7 +50,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
       "step_clip:0.01" \
       "policy_kwargs:dict(activation_fn=nn.Tanh, net_arch=[64, 64])" \
       "log_param_norms:True" \
-      "separate_optimizers:False" \
+      "separate_optimizers:True" \
       "pb_use_inner_loop:False" \
       "pb_inner_steps:5" \
       "pb_inner_lr:0.00005" \
@@ -84,7 +85,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
   #     "learning_rate:7e-4" \
   #     "actor_learning_rate:7e-4" \
   #     "frame_stack:4" \
-  #     "critic_learning_rate:7e-4" \
+  #     "critic_learning_rate:0.00035" \
   #     "ent_coef:0.01" \
   #     "vf_coef:0.5" \
   #     "policy:'CnnPolicy'" \
@@ -117,7 +118,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
   #     "learning_rate:7e-4" \
   #     "frame_stack:4" \
   #     "actor_learning_rate:'lin_1e-1'" \
-  #     "critic_learning_rate:7e-4" \
+  #     "critic_learning_rate:0.00035" \
   #     "ent_coef:0.01" \
   #     "vf_coef:0.5" \
   #     "use_pullback:True" \

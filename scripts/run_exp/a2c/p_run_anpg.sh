@@ -94,6 +94,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
         "normalize_advantage:True" \
         "use_rms_prop:False" \
         "use_pullback:True" \
+        "n_critic_updates:5" \
         "statistic:'logp'" \
         "prox_h:10.0" \
         "cg_lambda:0.01" \
