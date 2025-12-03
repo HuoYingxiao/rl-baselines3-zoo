@@ -4,7 +4,7 @@ seed_begin=1
 seed_end=1
 # BreakoutNoFrameskip
 ENV_NAME="Hopper-v4"
-TOTAL_STEPS=10000000
+TOTAL_STEPS=5000000
 PROJECT_NAME="sb3-anpg-t"
 
 for seed in $(seq ${seed_begin} ${seed_end}); do
@@ -55,7 +55,7 @@ for seed in $(seq ${seed_begin} ${seed_end}); do
       "pb_inner_steps:5" \
       "pb_inner_lr:0.00005" \
       "pb_use_kernel:True" \
-      "pb_kernel_num_anchors:2" \
+      "pb_kernel_num_anchors:4" \
       "pb_kernel_sigma:1.0" \
       "pb_use_nesterov_predict:True" \
       "pb_predict_iters:1" \

@@ -10,7 +10,7 @@ seed_begin=1
 seed_end=3
 
 ENV_NAME="LunarLander-v3"
-TOTAL_STEPS=5000000
+TOTAL_STEPS=3000000
 PROJECT_NAME="sb3-a2c-anpg"
 
 # 需要 bash 4+ 支持关联数组

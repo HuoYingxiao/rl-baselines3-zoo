@@ -7,7 +7,7 @@ seed_begin=1
 seed_end=3
 
 ENV_NAME="FreewayNoFrameskip-v4"
-TOTAL_STEPS=15000000
+TOTAL_STEPS=8000000
 PROJECT_NAME="sb3-a2c-anpg-exp"
 
 declare -A GPU_RUNNING

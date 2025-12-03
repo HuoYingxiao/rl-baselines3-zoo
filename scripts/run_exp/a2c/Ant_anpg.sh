@@ -7,7 +7,7 @@ seed_begin=1
 seed_end=5
 
 ENV_NAME="Ant-v4"
-TOTAL_STEPS=30000000
+TOTAL_STEPS=10000000
 PROJECT_NAME="sb3-a2c-anpg-exp"
 
 declare -A GPU_RUNNING

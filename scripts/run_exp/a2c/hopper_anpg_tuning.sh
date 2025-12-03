@@ -7,7 +7,7 @@ seed_begin=1
 seed_end=3
 
 ENV_NAME="Hopper-v4"
-TOTAL_STEPS=10000000
+TOTAL_STEPS=5000000
 PROJECT_NAME="sb3-anpg"
 
 # 要搜索的超参数

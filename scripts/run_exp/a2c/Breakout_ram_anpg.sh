@@ -8,7 +8,7 @@ seed_end=3
 
 # 使用 RAM 环境（128 维 RAM，离散 4 动作）
 ENV_NAME="Breakout-ramNoFrameskip-v4"
-TOTAL_STEPS=20000000
+TOTAL_STEPS=10000000
 PROJECT_NAME="sb3-a2c-anpg-breakout-ram"
 
 declare -A GPU_RUNNING

@@ -10,7 +10,7 @@ seed_begin=1
 seed_end=3
 
 ENV_NAME="CartPole-v1"
-TOTAL_STEPS=1000000   
+TOTAL_STEPS=500000   
 PROJECT_NAME="sb3-a2c-anpg-pendulum-kernels"
 
 declare -A GPU_RUNNING

@@ -7,7 +7,7 @@ seed_begin=1
 seed_end=5
 
 ENV_NAME="Pusher-v4"
-TOTAL_STEPS=15000000
+TOTAL_STEPS=5000000
 PROJECT_NAME="sb3-a2c-anpg-exp"
 
 declare -A GPU_RUNNING

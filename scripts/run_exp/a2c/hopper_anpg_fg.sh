@@ -11,7 +11,7 @@ seed_begin=1
 seed_end=1
 
 ENV_NAME="Hopper-v4"
-TOTAL_STEPS=5000000
+TOTAL_STEPS=3000000
 PROJECT_NAME="sb3-anpg"
 
 declare -A GPU_RUNNING     # gpu_id -> running count
