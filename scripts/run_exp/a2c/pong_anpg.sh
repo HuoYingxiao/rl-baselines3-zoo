@@ -109,7 +109,7 @@ A2C_PULLBACK_PARAMS1=(
   "fisher_ridge:0.1"
   "step_clip:0.01"
   "pb_use_kernel:True" \
-  "pb_kernel_num_anchors:32" \
+  "pb_kernel_num_anchors:4" \
   "pb_kernel_sigma:1.0" \
 )
 

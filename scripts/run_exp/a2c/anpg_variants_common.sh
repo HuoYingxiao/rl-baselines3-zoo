@@ -15,12 +15,12 @@ launch_anpg_variants() {
   local logp_no_kernel=("${A2C_PULLBACK_PARAMS_LOGP[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:False")
   local logp_kernel_beta08=("${A2C_PULLBACK_PARAMS_LOGP[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:True" "pb_momentum_beta:0.8")
   local logp_kernel_beta09=("${A2C_PULLBACK_PARAMS_LOGP[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:True" "pb_momentum_beta:0.9")
-  local logp_kernel_beta02=("${A2C_PULLBACK_PARAMS_LOGP[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:True" "pb_momentum_beta:0.2")
+  local logp_kernel_beta02=("${A2C_PULLBACK_PARAMS_LOGP[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:True" "pb_momentum_beta:0.3")
 
-  launch_variant "${seed}" "${algo}" "pullback_score_kernel" score_kernel
-  launch_variant "${seed}" "${algo}" "pullback_score_nokernel" score_no_kernel
+  # launch_variant "${seed}" "${algo}" "pullback_score_kernel" score_kernel
+  # launch_variant "${seed}" "${algo}" "pullback_score_nokernel" score_no_kernel
   launch_variant "${seed}" "${algo}" "pullback_logp_nokernel" logp_no_kernel
-  launch_variant "${seed}" "${algo}" "pullback_logp_kernel_beta08" logp_kernel_beta08
-  launch_variant "${seed}" "${algo}" "pullback_logp_kernel_beta09" logp_kernel_beta09
+  # launch_variant "${seed}" "${algo}" "pullback_logp_kernel_beta08" logp_kernel_beta08
+  # launch_variant "${seed}" "${algo}" "pullback_logp_kernel_beta09" logp_kernel_beta09
   launch_variant "${seed}" "${algo}" "pullback_logp_kernel_beta02" logp_kernel_beta02
 }

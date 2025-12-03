@@ -12,7 +12,7 @@ PROJECT_NAME="sb3-anpg"
 
 # 要搜索的超参数
 PROX_HS=(0.01 0.1 1.0 10.0 50.0)
-ANCHOR_LIST=(4 32 64 128)
+ANCHOR_LIST=(4)
 
 declare -A GPU_RUNNING
 declare -A PID_TO_GPU
@@ -124,7 +124,7 @@ launch_anpg_variant() {
         "policy_kwargs:${POLICY_ADAM}" \
         "normalize_advantage:True" \
         "use_pullback:True" \
-        "n_critic_updates:5" \
+        "n_critic_updates:20" \
         "statistic:'score_per_dim'" \
         "prox_h:${prox_h}" \
         "fr_order:1" \
@@ -137,7 +137,7 @@ launch_anpg_variant() {
         "pb_inner_steps:5" \
         "pb_inner_lr:0.00005" \
         "pb_use_kernel:True" \
-        "pb_kernel_num_anchors:${anchors}" \
+        "pb_kernel_num_anchors:4" \
         "pb_kernel_sigma:1.0"
 }
 

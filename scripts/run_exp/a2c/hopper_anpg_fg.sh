@@ -110,7 +110,7 @@ A2C_PULLBACK_PARAMS=(
   "policy_kwargs:${POLICY_ADAM}"
   "normalize_advantage:True"
   "use_pullback:True"
-  "n_critic_updates:5"
+  "n_critic_updates:20"
   "statistic:'logp'"
   "prox_h:5.0"
   "cg_lambda:0.01"

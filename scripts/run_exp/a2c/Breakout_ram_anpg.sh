@@ -6,9 +6,10 @@ MAX_PER_GPU=3
 seed_begin=1
 seed_end=3
 
-ENV_NAME="SpaceInvadersNoFrameskip-v4"
+# 使用 RAM 环境（128 维 RAM，离散 4 动作）
+ENV_NAME="Breakout-ramNoFrameskip-v4"
 TOTAL_STEPS=20000000
-PROJECT_NAME="sb3-a2c-anpg-exp"
+PROJECT_NAME="sb3-a2c-anpg-breakout-ram"
 
 declare -A GPU_RUNNING
 declare -A PID_TO_GPU
@@ -69,15 +70,15 @@ run_with_gpu() {
 }
 
 COMMON_ENV_PARAMS=(
-  "n_envs:8"
-  "n_steps:128"
+  "n_envs:16"
+  "n_steps:256"
   "gamma:0.99"
   "gae_lambda:0.95"
   "ent_coef:0.01"
   "vf_coef:0.5"
   "max_grad_norm:0.5"
   "normalize_advantage:True"
-  "frame_stack:4"
+  "frame_stack:1"
   "log_param_norms:True"
   "separate_optimizers:True"
 )
@@ -85,13 +86,13 @@ COMMON_ENV_PARAMS=(
 A2C_PARAMS=(
   "learning_rate:7e-4"
   "actor_learning_rate:7e-4"
-  "critic_learning_rate:0.0007"
+  "critic_learning_rate:7e-4"
 )
 
 A2C_PULLBACK_PARAMS_SCORE=(
   "learning_rate:7e-4"
-  "actor_learning_rate:1e-2"
-  "critic_learning_rate:0.00035"
+  "actor_learning_rate:5e-2"
+  "critic_learning_rate:3.5e-4"
   "use_pullback:True"
   "n_critic_updates:20"
   "statistic:'score_per_dim'"
@@ -100,14 +101,14 @@ A2C_PULLBACK_PARAMS_SCORE=(
   "cg_max_iter:10"
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
-  "step_clip:0.01"
+  "step_clip:0.05"
   "fr_order:1"
 )
 
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:7e-4"
-  "actor_learning_rate:1e-2"
-  "critic_learning_rate:0.00035"
+  "actor_learning_rate:5e-2"
+  "critic_learning_rate:3.5e-4"
   "use_pullback:True"
   "n_critic_updates:20"
   "statistic:'logp'"
@@ -116,14 +117,14 @@ A2C_PULLBACK_PARAMS_LOGP=(
   "cg_max_iter:10"
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
-  "step_clip:0.01"
+  "step_clip:0.05"
   "fr_order:1"
 )
 
 A2C_PULLBACK_PARAMS_LOGP2=(
   "learning_rate:7e-4"
-  "actor_learning_rate:1e-2"
-  "critic_learning_rate:0.00035"
+  "actor_learning_rate:5e-2"
+  "critic_learning_rate:3.5e-4"
   "use_pullback:True"
   "n_critic_updates:20"
   "statistic:'logp'"
@@ -132,8 +133,8 @@ A2C_PULLBACK_PARAMS_LOGP2=(
   "cg_max_iter:10"
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
-  "step_clip:0.01"
-  "fr_order:2"
+  "step_clip:0.05"
+  "fr_order:1"
 )
 
 PPO_PARAMS=(
@@ -145,9 +146,10 @@ PPO_PARAMS=(
   "ent_coef:0.01"
   "vf_coef:0.5"
   "clip_range:0.1"
-  "frame_stack:4"
+  "frame_stack:1"
 )
 
+# 你之前用的 ANPG 公共脚本
 source "$(dirname "$0")/anpg_variants_common.sh"
 
 launch_variant() {

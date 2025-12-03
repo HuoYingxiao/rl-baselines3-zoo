@@ -22,9 +22,9 @@ COMMON_HPARAMS=(
   "target_kl:0.01"
   "cg_max_steps:10"
   "cg_damping:0.1"
-  "line_search_shrinking_factor:0.5"
+  "line_search_shrinking_factor:0.8"
   "line_search_max_iter:10"
-  "n_critic_updates:1"
+  "n_critic_updates:20"
   "learning_rate:5e-4"
   "policy_kwargs:${POLICY_KWARGS}"
 )
