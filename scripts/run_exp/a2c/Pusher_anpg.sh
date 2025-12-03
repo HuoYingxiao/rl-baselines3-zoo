@@ -79,6 +79,7 @@ COMMON_ENV_PARAMS=(
   "max_grad_norm:0.5"
   "log_param_norms:True"
   "separate_optimizers:True"
+  "policy_kwargs:dict(activation_fn=nn.Tanh, net_arch=[64, 64])"
 )
 
 A2C_PARAMS=(
@@ -88,55 +89,22 @@ A2C_PARAMS=(
   "normalize_advantage:True"
 )
 
-A2C_PULLBACK_PARAMS_SCORE=(
-  "learning_rate:1e-5"
-  "actor_learning_rate:3e-2"
-  "critic_learning_rate:0.00015"
-  "normalize_advantage:True"
-  "use_pullback:True"
-  "n_critic_updates:20"
-  "statistic:'score_per_dim'"
-  "prox_h:0.5"
-  "cg_lambda:0.1"
-  "cg_max_iter:20"
-  "cg_tol:1e-10"
-  "fisher_ridge:0.1"
-  "step_clip:0.1"
-  "fr_order:1"
-)
 
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
-  "actor_learning_rate:3e-2"
-  "critic_learning_rate:0.00015"
+  "actor_learning_rate:'lin_3e-2'"
+  "critic_learning_rate:3e-4"
   "normalize_advantage:True"
   "use_pullback:True"
   "n_critic_updates:20"
   "statistic:'logp'"
-  "prox_h:0.5"
+  "prox_h:1.0"
   "cg_lambda:0.1"
   "cg_max_iter:20"
   "cg_tol:1e-10"
-  "fisher_ridge:0.1"
-  "step_clip:0.1"
+  "fisher_ridge:0.01"
+  "step_clip:0.01"
   "fr_order:1"
-)
-
-A2C_PULLBACK_PARAMS_LOGP2=(
-  "learning_rate:1e-5"
-  "actor_learning_rate:3e-2"
-  "critic_learning_rate:0.00015"
-  "normalize_advantage:True"
-  "use_pullback:True"
-  "n_critic_updates:20"
-  "statistic:'logp'"
-  "prox_h:0.5"
-  "cg_lambda:0.1"
-  "cg_max_iter:20"
-  "cg_tol:1e-10"
-  "fisher_ridge:0.1"
-  "step_clip:0.1"
-  "fr_order:2"
 )
 
 PPO_PARAMS=(

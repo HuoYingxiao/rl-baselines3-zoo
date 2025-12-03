@@ -7,7 +7,7 @@ seed_begin=1
 seed_end=5
 
 ENV_NAME="LunarLander-v3"
-TOTAL_STEPS=10000000
+TOTAL_STEPS=1000000
 PROJECT_NAME="sb3-a2c-anpg-exp"
 
 declare -A GPU_RUNNING
@@ -71,13 +71,14 @@ run_with_gpu() {
 # 这部分是 A2C 和 PPO 都通用的环境超参数
 COMMON_ENV_PARAMS=(
   "normalize:dict(norm_obs=True, norm_reward=True)"
-  "n_envs:8"
+  "n_envs:16"
   "n_steps:1024"
   "gamma:0.99"
   "gae_lambda:0.98"
   "ent_coef:0.01"
   "vf_coef:0.5"
   "max_grad_norm:0.5"
+  "policy_kwargs:dict(activation_fn=nn.Tanh, net_arch=[64, 64])"
 )
 
 # ===== A2C 相关超参数 =====
@@ -91,25 +92,6 @@ A2C_PARAMS=(
   "separate_optimizers:True"
 )
 
-
-A2C_PULLBACK_PARAMS_SCORE=(
-  "learning_rate:1e-5"
-  "actor_learning_rate:1e-2"
-  "critic_learning_rate:0.00015"
-  "normalize_advantage:True"
-  "log_param_norms:True"
-  "separate_optimizers:True"
-  "use_pullback:True"
-  "n_critic_updates:5"
-  "statistic:'score_per_dim'"
-  "prox_h:1.0"
-  "cg_lambda:0.1"
-  "cg_max_iter:30"
-  "cg_tol:1e-10"
-  "fisher_ridge:0.1"
-  "step_clip:0.01"
-  "fr_order:1"
-)
 
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
@@ -130,31 +112,10 @@ A2C_PULLBACK_PARAMS_LOGP=(
   "fr_order:1"
 )
 
-A2C_PULLBACK_PARAMS_LOGP2=(
-  "learning_rate:1e-5"
-  "actor_learning_rate:1e-2"
-  "critic_learning_rate:0.00015"
-  "normalize_advantage:True"
-  "log_param_norms:True"
-  "separate_optimizers:True"
-  "use_pullback:True"
-  "n_critic_updates:5"
-  "statistic:'logp'"
-  "prox_h:1.0"
-  "cg_lambda:0.1"
-  "cg_max_iter:30"
-  "cg_tol:1e-10"
-  "fisher_ridge:0.1"
-  "step_clip:0.01"
-  "fr_order:2"
-)
-
-# ===== PPO baseline 超参数 =====
-# 这里给一个比较常规的配置，可以再按需要调
 PPO_PARAMS=(
   "learning_rate:3e-4"
   "batch_size:64"
-  "n_epochs:10"
+  "n_epochs:4"
   "gamma:0.99"
   "gae_lambda:0.98"
   "ent_coef:0.01"

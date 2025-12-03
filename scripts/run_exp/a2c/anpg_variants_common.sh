@@ -19,7 +19,7 @@ launch_anpg_variants() {
 
   # launch_variant "${seed}" "${algo}" "pullback_score_kernel" score_kernel
   # launch_variant "${seed}" "${algo}" "pullback_score_nokernel" score_no_kernel
-  launch_variant "${seed}" "${algo}" "pullback_logp_nokernel" logp_no_kernel
+  # launch_variant "${seed}" "${algo}" "pullback_logp_nokernel" logp_no_kernel
   # launch_variant "${seed}" "${algo}" "pullback_logp_kernel_beta08" logp_kernel_beta08
   # launch_variant "${seed}" "${algo}" "pullback_logp_kernel_beta09" logp_kernel_beta09
   launch_variant "${seed}" "${algo}" "pullback_logp_kernel_beta02" logp_kernel_beta02
