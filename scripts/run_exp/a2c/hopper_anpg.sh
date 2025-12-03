@@ -82,7 +82,8 @@ COMMON_HPARAMS=(
   "separate_optimizers:True"
 )
 
-POLICY_BASE="dict(activation_fn=nn.Tanh, net_arch=dict(pi=[64, 64], vf=[64, 64])"
+# Policy backbone and optimizer for Hopper runs.
+POLICY_ADAM="dict(activation_fn=nn.Tanh, net_arch=[64, 64])"
 
 # Variant-specific hyperparameters (arrays are referenced via nameref in launch_variant).
 A2C_PARAMS=(
@@ -95,17 +96,17 @@ A2C_PARAMS=(
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
   "actor_learning_rate:'lin_1e-2'"
-  "critic_learning_rate:5e-05"
+  "critic_learning_rate:5e-4"
   "policy_kwargs:${POLICY_ADAM}"
   "normalize_advantage:True"
   "use_pullback:True"
   "n_critic_updates:20"
   "statistic:'logp'"
   "prox_h:1.0"
-  "cg_lambda:0.01"
-  "cg_max_iter:10"
+  "cg_lambda:0.1"
+  "cg_max_iter:20"
   "cg_tol:1e-10"
-  "fisher_ridge:0.1"
+  "fisher_ridge:0.01"
   "step_clip:0.01"
   "fr_order:1"
 )
@@ -120,10 +121,10 @@ A2C_PULLBACK_PARAMS_SCORE=(
   "n_critic_updates:20"
   "statistic:'score_per_dim'"
   "prox_h:1.0"
-  "cg_lambda:0.01"
-  "cg_max_iter:10"
+  "cg_lambda:0.1"
+  "cg_max_iter:20"
   "cg_tol:1e-10"
-  "fisher_ridge:0.1"
+  "fisher_ridge:0.01"
   "step_clip:0.01"
   "fr_order:1"
 )
@@ -149,13 +150,19 @@ A2C_PULLBACK_PARAMS_LOGP2=(
 # PPO baseline hyperparams
 PPO_PARAMS=(
   "learning_rate:1e-4"
-  "batch_size:64"
-  "n_epochs:10"
+  "actor_learning_rate:1e-4"
+  "critic_learning_rate:1e-4"
+  "batch_size:1024"
   "gamma:0.99"
-  "gae_lambda:0.98"
+  "gae_lambda:0.95"
   "ent_coef:0.01"
-  "vf_coef:0.5"
   "clip_range:0.2"
+  "n_epochs:5"
+  "max_grad_norm:2.0"
+  "vf_coef:0.5"
+  "log_param_norms:True"
+  "separate_optimizers:True"
+  "normalize:dict(norm_obs=True, norm_reward=True)" 
 )
 
 # Common ANPG variants

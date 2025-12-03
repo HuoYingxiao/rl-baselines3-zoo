@@ -410,6 +410,10 @@ Swimmer-v4:
   learning_rate: !!float 6e-4
   gae_lambda: 0.98
 
+Pusher-v4:
+  <<: *mujoco-defaults
+  policy_kwargs: "dict(activation_fn=nn.Tanh, net_arch=[64, 64])"
+
 # Tuned
 # 10 mujoco envs
 

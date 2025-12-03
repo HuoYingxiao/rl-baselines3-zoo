@@ -1,3 +1,20 @@
+atari:
+  env_wrapper:
+    - stable_baselines3.common.atari_wrappers.AtariWrapper
+  frame_stack: 4
+  policy: 'CnnPolicy'
+  n_envs: 8
+  n_steps: 128
+  batch_size: 2048
+  n_timesteps: !!float 1e7
+  learning_rate: !!float 2.5e-4
+  gamma: 0.99
+  gae_lambda: 0.95
+  target_kl: 0.01
+  cg_max_steps: 10
+  cg_damping: 0.1
+  n_critic_updates: 20
+
 # Tuned
 CartPole-v1:
   n_envs: 2

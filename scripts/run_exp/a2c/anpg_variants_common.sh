@@ -9,10 +9,10 @@ launch_anpg_variants() {
 
   # score_per_dim variants
   local score_kernel=("${A2C_PULLBACK_PARAMS_SCORE[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:True")
-  local score_no_kernel=("${A2C_PULLBACK_PARAMS_SCORE[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:False")
+  local score_no_kernel=("${A2C_PULLBACK_PARAMS_SCORE[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:False" "pb_momentum_beta:0.3")
 
   # logp variants
-  local logp_no_kernel=("${A2C_PULLBACK_PARAMS_LOGP[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:False")
+  local logp_no_kernel=("${A2C_PULLBACK_PARAMS_LOGP[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:False" "pb_momentum_beta:0.3")
   local logp_kernel_beta08=("${A2C_PULLBACK_PARAMS_LOGP[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:True" "pb_momentum_beta:0.8")
   local logp_kernel_beta09=("${A2C_PULLBACK_PARAMS_LOGP[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:True" "pb_momentum_beta:0.9")
   local logp_kernel_beta02=("${A2C_PULLBACK_PARAMS_LOGP[@]}" "pb_use_nesterov_predict:True" "pb_use_kernel:True" "pb_momentum_beta:0.3")
