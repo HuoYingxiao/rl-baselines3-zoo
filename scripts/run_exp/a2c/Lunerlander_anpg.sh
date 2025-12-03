@@ -7,7 +7,7 @@ seed_begin=1
 seed_end=5
 
 ENV_NAME="LunarLander-v3"
-TOTAL_STEPS=3000000
+TOTAL_STEPS=10000000
 PROJECT_NAME="sb3-a2c-anpg-exp"
 
 declare -A GPU_RUNNING
@@ -100,7 +100,7 @@ A2C_PULLBACK_PARAMS_SCORE=(
   "log_param_norms:True"
   "separate_optimizers:True"
   "use_pullback:True"
-  "n_critic_updates:20"
+  "n_critic_updates:5"
   "statistic:'score_per_dim'"
   "prox_h:1.0"
   "cg_lambda:0.1"
@@ -119,7 +119,7 @@ A2C_PULLBACK_PARAMS_LOGP=(
   "log_param_norms:True"
   "separate_optimizers:True"
   "use_pullback:True"
-  "n_critic_updates:20"
+  "n_critic_updates:5"
   "statistic:'logp'"
   "prox_h:1.0"
   "cg_lambda:0.1"
@@ -138,7 +138,7 @@ A2C_PULLBACK_PARAMS_LOGP2=(
   "log_param_norms:True"
   "separate_optimizers:True"
   "use_pullback:True"
-  "n_critic_updates:20"
+  "n_critic_updates:5"
   "statistic:'logp'"
   "prox_h:1.0"
   "cg_lambda:0.1"

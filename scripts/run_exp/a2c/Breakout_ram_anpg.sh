@@ -7,7 +7,7 @@ seed_begin=1
 seed_end=3
 
 # 使用 RAM 环境（128 维 RAM，离散 4 动作）
-ENV_NAME="Breakout-ramNoFrameskip-v4"
+ENV_NAME="ALE/Breakout-v5"
 TOTAL_STEPS=10000000
 PROJECT_NAME="sb3-a2c-anpg-breakout-ram"
 
@@ -81,6 +81,7 @@ COMMON_ENV_PARAMS=(
   "frame_stack:1"
   "log_param_norms:True"
   "separate_optimizers:True"
+  "policy:'MlpPolicy'"
 )
 
 A2C_PARAMS=(
@@ -165,6 +166,7 @@ launch_variant() {
       --wandb-run-extra-name "${extra_name}" \
       --algo "${algo}" \
       --env "${ENV_NAME}" \
+      --env-kwargs "obs_type:'ram'" \
       --vec-env subproc \
       --n-timesteps ${TOTAL_STEPS} \
       --seed ${seed} \
