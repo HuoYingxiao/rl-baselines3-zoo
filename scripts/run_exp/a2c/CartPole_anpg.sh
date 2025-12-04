@@ -7,7 +7,7 @@ seed_begin=1
 seed_end=5
 
 ENV_NAME="CartPole-v1"
-TOTAL_STEPS=2000000
+TOTAL_STEPS=5000000
 PROJECT_NAME="sb3-a2c-anpg-exp"
 
 declare -A GPU_RUNNING
@@ -79,6 +79,7 @@ COMMON_ENV_PARAMS=(
   "max_grad_norm:0.5"
   "log_param_norms:True"
   "separate_optimizers:True"
+  "policy_kwargs:dict(activation_fn=nn.Tanh, net_arch=[64, 64])"
 )
 
 A2C_PARAMS=(
@@ -94,7 +95,7 @@ A2C_PULLBACK_PARAMS_SCORE=(
   "critic_learning_rate:0.00015"
   "normalize_advantage:True"
   "use_pullback:True"
-  "n_critic_updates:20"
+  "n_critic_updates:5"
   "statistic:'score_per_dim'"
   "prox_h:1.0"
   "cg_lambda:0.1"
@@ -111,7 +112,7 @@ A2C_PULLBACK_PARAMS_LOGP=(
   "critic_learning_rate:0.00015"
   "normalize_advantage:True"
   "use_pullback:True"
-  "n_critic_updates:20"
+  "n_critic_updates:5"
   "statistic:'logp'"
   "prox_h:1.0"
   "cg_lambda:0.1"
@@ -128,7 +129,7 @@ A2C_PULLBACK_PARAMS_LOGP2=(
   "critic_learning_rate:0.00015"
   "normalize_advantage:True"
   "use_pullback:True"
-  "n_critic_updates:20"
+  "n_critic_updates:5"
   "statistic:'logp'"
   "prox_h:1.0"
   "cg_lambda:0.1"
