@@ -6,8 +6,8 @@ MAX_PER_GPU=3
 seed_begin=1
 seed_end=5
 
-ENV_NAME="Pusher-v5"
-TOTAL_STEPS=5000000
+ENV_NAME="Humanoid-v4"
+TOTAL_STEPS=10000000
 PROJECT_NAME="sb3-a2c-anpg-exp"
 
 declare -A GPU_RUNNING
@@ -68,80 +68,52 @@ run_with_gpu() {
   GPU_RUNNING[$gpu_id]=$(( GPU_RUNNING[$gpu_id] + 1 ))
 }
 
+# 通用的环境超参数，A2C/PPO 共用
 COMMON_ENV_PARAMS=(
   "normalize:dict(norm_obs=True, norm_reward=True)"
   "n_envs:8"
-  "n_steps:512"
+  "n_steps:256"
   "gamma:0.99"
   "gae_lambda:0.98"
   "ent_coef:0.01"
   "vf_coef:0.5"
   "max_grad_norm:0.5"
+)
+
+# ===== A2C 相关超参数 =====
+A2C_PARAMS=(
+  "learning_rate:1e-5"
+  "actor_learning_rate:1e-4"
+  "critic_learning_rate:0.0001"
+  "normalize_advantage:True"
   "log_param_norms:True"
   "separate_optimizers:True"
 )
 
-A2C_PARAMS=(
-  "learning_rate:1e-5"
-  "actor_learning_rate:3e-4"
-  "critic_learning_rate:0.0003"
-  "normalize_advantage:True"
-)
-
-A2C_PULLBACK_PARAMS_SCORE=(
-  "learning_rate:1e-5"
-  "actor_learning_rate:3e-2"
-  "critic_learning_rate:0.00015"
-  "normalize_advantage:True"
-  "use_pullback:True"
-  "n_critic_updates:20"
-  "statistic:'score_per_dim'"
-  "prox_h:0.5"
-  "cg_lambda:0.1"
-  "cg_max_iter:20"
-  "cg_tol:1e-10"
-  "fisher_ridge:0.1"
-  "step_clip:0.1"
-  "fr_order:1"
-)
-
 A2C_PULLBACK_PARAMS_LOGP=(
   "learning_rate:1e-5"
-  "actor_learning_rate:3e-2"
-  "critic_learning_rate:0.00015"
+  "actor_learning_rate:'lin_1e-2'"
+  "critic_learning_rate:1e-4"
   "normalize_advantage:True"
+  "log_param_norms:True"
+  "separate_optimizers:True"
   "use_pullback:True"
   "n_critic_updates:20"
   "statistic:'logp'"
-  "prox_h:0.5"
+  "prox_h:0.1"
   "cg_lambda:0.1"
-  "cg_max_iter:20"
+  "cg_max_iter:30"
   "cg_tol:1e-10"
   "fisher_ridge:0.1"
-  "step_clip:0.1"
+  "step_clip:0.01"
   "fr_order:1"
 )
 
-A2C_PULLBACK_PARAMS_LOGP2=(
-  "learning_rate:1e-5"
-  "actor_learning_rate:3e-2"
-  "critic_learning_rate:0.00015"
-  "normalize_advantage:True"
-  "use_pullback:True"
-  "n_critic_updates:20"
-  "statistic:'logp'"
-  "prox_h:0.5"
-  "cg_lambda:0.1"
-  "cg_max_iter:20"
-  "cg_tol:1e-10"
-  "fisher_ridge:0.1"
-  "step_clip:0.1"
-  "fr_order:2"
-)
 
+# ===== PPO baseline 超参数 =====
 PPO_PARAMS=(
-  "learning_rate:3e-4"
-  "batch_size:128"
+  "learning_rate:1e-4"
+  "batch_size:64"
   "n_epochs:10"
   "gamma:0.99"
   "gae_lambda:0.98"
@@ -156,7 +128,7 @@ launch_variant() {
   local seed=$1
   local algo=$2
   local variant=$3
-  local -n params_ref=$4
+  local -n params_ref=$4  # nameref
   local extra_name="${algo}_${variant}_seed${seed}"
 
   run_with_gpu \
@@ -181,11 +153,16 @@ launch_variant() {
 
 for seed in $(seq ${seed_begin} ${seed_end}); do
   echo "===== seed ${seed} ====="
-  launch_variant "${seed}" "a2c" "baseline" A2C_PARAMS
+
+  # A2C baselines + pullback variants
+  launch_variant "${seed}" "a2c" "baseline"        A2C_PARAMS
   launch_anpg_variants "${seed}"
-  launch_variant "${seed}" "ppo" "baseline" PPO_PARAMS
+
+  # PPO baseline
+  launch_variant "${seed}" "ppo" "baseline"        PPO_PARAMS
 done
 
+# Wait for outstanding jobs.
 if ((${#PIDS[@]} > 0)); then
   for pid in "${PIDS[@]}"; do
     if kill -0 "$pid" 2>/dev/null; then

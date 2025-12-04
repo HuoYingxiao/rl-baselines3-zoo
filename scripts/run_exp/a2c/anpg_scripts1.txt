@@ -2,3 +2,4 @@ HalfCheetah_anpg.sh
 Lunerlander_anpg.sh
 Pusher_anpg.sh
 CartPole_anpg.sh
+Humanoid_anpg.sh
